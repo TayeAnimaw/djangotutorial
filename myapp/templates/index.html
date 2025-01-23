@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Welcome to the Home Page on the Django Tutorials</h1>
+
+    <!-- Blog Form -->
+    <form class="mb-5" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="titleInput" class="form-label" >Title</label>
+            <input type="text" class="form-control" id="titleInput" placeholder="Enter blog title" name="title">
+        </div>
+        <div class="mb-3">
+            <label for="contentInput" class="form-label">Content</label>
+            <textarea  name ="blog.content" class="form-control" id="contentInput" rows="3" placeholder="Enter blog content" ></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Add Blog</button>
+    </form>
+
+    <!-- Blog Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for blog in blogs %}
+                <tr>
+                    <td>{{ blog.title }}</td>
+                    <td>{{ blog.content }}</td>
+                    <td>{{ blog.created|date:"Y-m-d H:i" }}</td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-primary">View</a>
+                        <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No blogs found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

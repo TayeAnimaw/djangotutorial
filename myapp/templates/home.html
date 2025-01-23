@@ -1,0 +1,39 @@
+{%extends "base.html"%}
+{%load static%}
+{%block title%}Home{%endblock%}
+{%block content%}
+<div class="container mt-2">
+    <div class="row">
+      <div class="col-lg-4   ">
+        <img src="{%static 'images/t2.avif'%}" alt="Taye" class =  width="360" height="260">
+      </div>
+      <div class="col-lg-4 ">
+        <img src="{%static 'images/meet.avif'%}" alt="no image" class =  width="360" height="260">
+     
+      </div>
+      <div class="col-lg-4 ">
+        <img src="{%static 'images/bus.avif'%}" alt="no image" class =  width="360" height="260">
+      </div>
+    </div>
+    
+        
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            <center>
+              <h1 class="display-4">Welcome to Django App</h1>
+              <p class="lead">Your one-stop solution for learning and exploring Django!</p>
+              <p class="lead">This is the home page of our Django App. You can navigate to other pages using the navigation bar above.</p>  
+
+
+            </center>
+          </div>
+        </div>
+        <center>
+            <a href="{%url 'student'%}" ><button type="button" class="btn btn-primary btn-lg mt-3">Let's Get Started</button></a>
+        </center>
+        
+    
+      
+</div>
+
+{%endblock%}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}update  Student Information{% endblock %}
+{% block content %}
+{% for message in messages %}
+    
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Update Student Information</h1>
+    <form class="mb-5" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Update Student</button>
+    </form>
+
+</div>
+{% endblock %}

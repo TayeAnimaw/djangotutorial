@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Student{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Welcome to the Student Page</h1>
+    {% for message in messages %}
+    
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+    <form class="mb-5" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- This will render all the fields in the form -->
+        <button type="submit" class="btn btn-primary">Add Student</button>
+    </form>
+    
+</div>
+<div class="container mt-5">
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Email</th>
+                <th scope="col">CGPA</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.id }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.father_name }}</td>
+                <td>{{ student.phone }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.grade }}</td>
+                <td>
+                    <a href="#" class="btn btn-sm text-primary">View</a>
+                    <a href="{% url 'edit_student' student.id%}" class="btn btn-sm text-warning">Edit</a>
+                    <a href="{% url 'delete_student' student.id%}" class="btn btn-sm text-danger">Delete</a>
+                </td>
+            </tr>
+            
+
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No students found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <p>Showing {{ students.start_index }} to {{ students.end_index }} of {{ students.paginator.count }} entries</p>
+        </div>
+        <div class="col-md-6">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                    {% if students.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ students.previous_page_number }}"><<</a>
+                    </li>
+                    {% endif %}
+                    {% for page in students.paginator.page_range %}
+                    <li class="page-item {% if page == students.number %}active{% endif %}">
+                        <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                    </li>
+                    {% endfor %}
+                    {% if students.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ students.next_page_number }}">>></a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+    
+    </div>
+ 
+{% endblock %}
+
+
+
